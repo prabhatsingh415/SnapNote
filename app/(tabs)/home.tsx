@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../../components/home/Header";
-import Feed from "../../components/home/Feed";
+import Header from "../../src/components/home/Header";
+import Feed from "../../src/components/home/Feed";
 
 const Home = () => {
   return (

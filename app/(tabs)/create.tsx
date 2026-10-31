@@ -9,14 +9,15 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AppText from "../../components/general/AppText";
+import AppText from "../../src/components/general/AppText";
 import { ArrowLeft, Camera } from "lucide-react-native";
 import { useRouter } from "expo-router";
 import useThemeStore from "../../src/store/themeStore";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import ImagePermissionPopUp from "../../components/create/ImagePermissionPopUp";
+import ImagePermissionPopUp from "../../src/components/create/ImagePermissionPopUp";
 import { noteSchema } from "../../src/validation/noteValidation";
+import { useNotes } from "../../src/db/useNotes";
 
 export default function Create() {
   const router = useRouter();
@@ -30,6 +31,8 @@ export default function Create() {
 
   const [titleError, setTitleError] = useState<string>("");
   const [descriptionError, setDescriptionError] = useState<string>("");
+
+  const { createNote } = useNotes();
 
   const pickImage = async () => {
     const permissionResult =
@@ -75,7 +78,7 @@ export default function Create() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const result = noteSchema.safeParse({
       title,
       description,
@@ -90,10 +93,16 @@ export default function Create() {
       return;
     }
 
-    // ✅ Validation passed
     console.log(result.data);
 
-    // TODO: SQLite mein save karna
+    // TODO: SQLite mein save karna'
+    await createNote({
+      title: title,
+      description: description,
+      imageUri: image,
+    });
+
+    router.push("home");
   };
 
   return (
@@ -238,4 +247,3 @@ export default function Create() {
     </SafeAreaView>
   );
 }
-//Todo: complete the layout !

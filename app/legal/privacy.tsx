@@ -1,4 +1,4 @@
-import LegalScreen, { Section } from "../../components/legal/LegalLayout";
+import LegalScreen, { Section } from "../../src/components/legal/LegalLayout";
 
 export default function PrivacyPolicyScreen() {
   return (

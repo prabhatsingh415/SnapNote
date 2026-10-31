@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { View, Animated, Easing, StyleSheet } from "react-native";
-import useThemeStore from "../src/store/themeStore";
+import useThemeStore from "../store/themeStore";
 
 type AnimatedSplashProps = {
   onFinish?: () => void;

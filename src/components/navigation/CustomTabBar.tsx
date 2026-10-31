@@ -1,7 +1,7 @@
 import { View, Pressable, Text } from "react-native";
 import { House, Settings, Plus } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import useThemeStore from "../../src/store/themeStore";
+import useThemeStore from "../../store/themeStore";
 
 type CustomTabBarProps = {
   state: any;

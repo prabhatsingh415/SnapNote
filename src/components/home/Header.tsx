@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextInput, View } from "react-native";
-import useThemeStore from "../../src/store/themeStore";
+import useThemeStore from "../../store/themeStore";
 import AppText from "../general/AppText";
 import { Search } from "lucide-react-native";
 

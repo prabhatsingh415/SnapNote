@@ -6,9 +6,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 import * as SplashScreen from "expo-splash-screen";
 
-import AnimatedSplash from "../components/AnimatedSplash";
+import { SQLiteProvider } from "expo-sqlite";
+import AnimatedSplash from "../src/components/AnimatedSplash";
 import useThemeStore from "../src/store/themeStore";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { migrateDB } from "../src/db/migration";
+import SyncManager from "../src/sync/SyncManager";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,22 +43,30 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <View style={{ flex: 1, backgroundColor: "#0A0A0A" }} onLayout={onLayout}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: {
-              backgroundColor: "#000000",
-            },
-          }}
+    <SQLiteProvider databaseName="SnapNoteDB" onInit={migrateDB}>
+      <SafeAreaProvider>
+        <SyncManager />
+        <View
+          style={{ flex: 1, backgroundColor: "#0A0A0A" }}
+          onLayout={onLayout}
         >
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: {
+                backgroundColor: "#000000",
+              },
+            }}
+          >
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
 
-        {showSplash && <AnimatedSplash onFinish={() => setShowSplash(false)} />}
-      </View>
-    </SafeAreaProvider>
+          {showSplash && (
+            <AnimatedSplash onFinish={() => setShowSplash(false)} />
+          )}
+        </View>
+      </SafeAreaProvider>
+    </SQLiteProvider>
   );
 }
