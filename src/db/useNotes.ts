@@ -2,16 +2,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import * as Crypto from "expo-crypto";
 import { Operation, SyncStatus } from "../types/migration";
 import { useQueue } from "../sync/queue";
-
-export interface Note {
-  id: string;
-  title: string;
-  imageUri?: string;
-  description?: string;
-  status: SyncStatus;
-  createdAt: number;
-  updatedAt: number;
-}
+import { Note } from "../types/note";
 
 export const useNotes = () => {
   const db = useSQLiteContext();

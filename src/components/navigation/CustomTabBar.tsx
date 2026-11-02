@@ -5,11 +5,11 @@ import useThemeStore from "../../store/themeStore";
 
 type CustomTabBarProps = {
   state: any;
-  navigation: any;
 };
 
-export default function CustomTabBar({ state, navigation }: CustomTabBarProps) {
+export default function CustomTabBar({ state }: CustomTabBarProps) {
   const router = useRouter();
+
   const theme = useThemeStore((state) => state.theme);
   const isDark = theme === "dark";
 
@@ -17,14 +17,12 @@ export default function CustomTabBar({ state, navigation }: CustomTabBarProps) {
     ? {
         surface: "#1E1C1A",
         border: "#2E2B29",
-        text: "#EDEDEA",
         muted: "#66625E",
         brand: "#1E834F",
       }
     : {
         surface: "#FFFFFF",
         border: "#E9E6DF",
-        text: "#1C1917",
         muted: "#A39E98",
         brand: "#0F5132",
       };
@@ -37,14 +35,15 @@ export default function CustomTabBar({ state, navigation }: CustomTabBarProps) {
       pointerEvents="box-none"
     >
       <View
-        className="h-[110px]  flex-row items-center justify-between rounded-[28px] border px-8"
+        className="h-[110px] flex-row items-center justify-between rounded-[28px] border px-8"
         style={{
           backgroundColor: colors.surface,
           borderColor: colors.border,
         }}
       >
+        {/* HOME */}
         <Pressable
-          onPress={() => navigation.navigate("home")}
+          onPress={() => router.push("/(tabs)/home")}
           className="items-center justify-center"
         >
           <House
@@ -64,9 +63,10 @@ export default function CustomTabBar({ state, navigation }: CustomTabBarProps) {
           </Text>
         </Pressable>
 
+        {/* CREATE */}
         <Pressable
-          onPress={() => router.push("/create")}
-          className="absolute top-4  h-16 w-16 items-center justify-center rounded-full"
+          onPress={() => router.push("/(tabs)/create")}
+          className="absolute top-4 h-16 w-16 items-center justify-center rounded-full"
           style={{
             left: "59%",
             marginLeft: -28,
@@ -84,8 +84,9 @@ export default function CustomTabBar({ state, navigation }: CustomTabBarProps) {
           <Plus size={28} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
 
+        {/* SETTINGS */}
         <Pressable
-          onPress={() => navigation.navigate("settings")}
+          onPress={() => router.push("/(tabs)/settings")}
           className="items-center justify-center"
         >
           <Settings

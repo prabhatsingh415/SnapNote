@@ -1,9 +1,8 @@
 import { View, FlatList, Image } from "react-native";
 import AppText from "../general/AppText";
 import { useNotes } from "../../db/useNotes";
-
-const { getNotes } = useNotes();
-const notes = await getNotes();
+import { useEffect, useState } from "react";
+import { Note } from "../../types/note";
 
 const formatCreatedAt = (value: string | number | Date) => {
   const date = new Date(value);
@@ -35,6 +34,19 @@ const formatCreatedAt = (value: string | number | Date) => {
 };
 
 const Feed = () => {
+  const { getNotes } = useNotes();
+
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  useEffect(() => {
+    const loadNotes = async () => {
+      const data = await getNotes();
+      setNotes(data);
+    };
+
+    loadNotes();
+  }, [getNotes]);
+
   return (
     <FlatList
       data={notes}

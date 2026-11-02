@@ -8,7 +8,6 @@ import Svg, { Path } from "react-native-svg";
 
 import useThemeStore from "../../src/store/themeStore";
 
-// lucide icon pe className se color lagane ke liye
 cssInterop(NotebookPen, {
   className: { target: "style", nativeStyleToProp: { color: true } },
 });
@@ -54,31 +53,37 @@ export default function AuthScreen() {
 
   return (
     <View
-      className={`flex-1 bg-light-bg dark:bg-dark-bg`}
+      className={"flex-1 bg-light-bg dark:bg-dark-bg"}
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
       <StatusBar style={theme === "dark" ? "light" : "dark"} />
 
-      <View className={`flex-1 px-[25px] pt-[28px] pb-[20px]`}>
+      <View className={"flex-1 px-[25px] pt-[28px] pb-[20px]"}>
         {/* Brand */}
-        <View className={`items-start`}>
+        <View className={"items-start"}>
           <Text
-            className={`font-inter-bold text-[22px] leading-[29px] text-light-text dark:text-dark-text`}
+            className={
+              "font-inter-bold text-[22px] leading-[29px] text-light-text dark:text-dark-text"
+            }
           >
-            FieldNote
+            SnapNote
           </Text>
           <Text
-            className={`mt-[1px] font-inter text-[13px] leading-[18px] text-light-textSecondary dark:text-dark-textSecondary`}
+            className={
+              "mt-[1px] font-inter text-[13px] leading-[18px] text-light-textSecondary dark:text-dark-textSecondary"
+            }
           >
             Photo notes, saved.
           </Text>
         </View>
 
         {/* Main */}
-        <View className={`flex-1 items-center justify-center pb-[90px]`}>
+        <View className={"flex-1 items-center justify-center pb-[90px]"}>
           {/* App Icon */}
           <View
-            className={`mb-[24px] h-[80px] w-[80px] items-center justify-center rounded-full bg-light-iconBg dark:bg-dark-iconBg`}
+            className={
+              "mb-[24px] h-[80px] w-[80px] items-center justify-center rounded-full bg-light-iconBg dark:bg-dark-iconBg"
+            }
           >
             <NotebookPen
               size={32}
@@ -89,14 +94,18 @@ export default function AuthScreen() {
 
           {/* Title */}
           <Text
-            className={`text-center font-inter-bold text-[24px] leading-[32px] text-light-text dark:text-dark-text`}
+            className={
+              "text-center font-inter-bold text-[24px] leading-[32px] text-light-text dark:text-dark-text"
+            }
           >
             Sign up or log in
           </Text>
 
           {/* Description */}
           <Text
-            className={`mt-[7px] text-center font-inter text-[14px] leading-[21px] text-light-textSecondary dark:text-dark-textSecondary`}
+            className={
+              "mt-[7px] text-center font-inter text-[14px] leading-[21px] text-light-textSecondary dark:text-dark-textSecondary"
+            }
           >
             Add photos and notes together. One tap to save, one{"\n"}
             home for your memories.

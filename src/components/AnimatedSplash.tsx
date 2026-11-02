@@ -147,6 +147,7 @@ export default function AnimatedSplash({
 
   return (
     <Animated.View
+      pointerEvents="none"
       style={[
         styles.container,
         {
@@ -157,7 +158,7 @@ export default function AnimatedSplash({
     >
       <View style={styles.center}>
         <Animated.Image
-          source={require("../assets/splash-icon.png")}
+          source={require("../../assets/splash-icon.png")}
           style={[
             styles.icon,
             {

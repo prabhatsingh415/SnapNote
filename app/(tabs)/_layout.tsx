@@ -17,6 +17,13 @@ export default function _layout() {
       />
 
       <Tabs.Screen
+        name="create"
+        options={{
+          title: "Create",
+        }}
+      />
+
+      <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",

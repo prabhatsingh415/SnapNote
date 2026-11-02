@@ -5,24 +5,29 @@ import { useSync } from "./useSync";
 const SyncManager = () => {
   const { sync } = useSync();
 
-  const appState = useRef<AppStateStatus>(AppState.currentState);
-
+  const appState = useRef<AppStateStatus>(
+  (AppState.currentState ?? "active") as AppStateStatus
+);
   useEffect(() => {
     // App launch / initial foreground
     sync();
 
-    const subscription = AppState.addEventListener("change", (nextState) => {
-      const wasBackground =
-        appState.current === "background" || appState.current === "inactive";
+    const subscription = AppState.addEventListener(
+      "change",
+      (nextState) => {
+        const wasBackground =
+          appState.current === "background" ||
+          appState.current === "inactive";
 
-      const isForeground = nextState === "active";
+        const isForeground = nextState === "active";
 
-      if (wasBackground && isForeground) {
-        sync();
+        if (wasBackground && isForeground) {
+          sync();
+        }
+
+        appState.current = nextState;
       }
-
-      appState.current = nextState;
-    });
+    );
 
     return () => {
       subscription.remove();
