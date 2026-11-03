@@ -105,7 +105,6 @@ export default function Create() {
     router.push("home");
   };
 
-  console.log("aayaa");
   return (
     <SafeAreaView className="flex-1 p-4 gap-8 bg-light-bg dark:bg-dark-bg">
       <View className="flex-row items-center justify-start gap-20">
