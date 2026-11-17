@@ -10,6 +10,7 @@ export const noteSchema = z.object({
   description: z
     .string()
     .trim()
-    .min(3, "Description must be at least 3 characters")
-    .max(1000, "Description cannot exceed 1000 characters"),
+    .max(1000, "Description cannot exceed 1000 characters")
+    .optional()
+    .or(z.literal("")),
 });

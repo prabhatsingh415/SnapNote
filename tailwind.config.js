@@ -12,42 +12,41 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter"],
-        "inter-medium": ["Inter-Medium"],
-        "inter-semibold": ["Inter-SemiBold"],
-        "inter-bold": ["Inter-Bold"],
+        sans: ["BricolageGrotesque_500Medium"],
+        "bricolage-medium": ["BricolageGrotesque_500Medium"],
+        "bricolage-bold": ["BricolageGrotesque_700Bold"],
+        mono: ["DMMono_400Regular"],
       },
       colors: {
+        accent: {
+          DEFAULT: "#3DDC84",
+          ink: "#0F100D",
+        },
         light: {
-          bg: "#FAF9F5",
-          surface: "#FFFFFF",
-          border: "#E9E6DF",
-
-          text: "#1C1917",
-          textSecondary: "#615E5B",
-          textMuted: "#A39E98",
-
-          brand: "#0F5132",
-          brandHover: "#0B4329",
+          bg: "#F2EEE6",
+          fg: "#16150F",
+          muted: "#5F5A50",
+          card: "#E3DDD0",
+          line: "#CFC8B8",
+          sheet: "#FBF8F2",
+          body: "#3A372F",
+          bar: "#16150F",
+          danger: "#A8362A",
+          dangerLine: "#E3B5AE",
         },
-
         dark: {
-          bg: "#121110",
-          surface: "#1E1C1A",
-          border: "#2E2B29",
-
-          text: "#EDEDEA",
-          textSecondary: "#9C9792",
-          textMuted: "#66625E",
-
-          brand: "#1E834F",
-          brandHover: "#187244",
+          bg: "#0F100D",
+          fg: "#F1EFE8",
+          muted: "#A9AEA1",
+          card: "#1F211B",
+          line: "#34372E",
+          sheet: "#181A15",
+          body: "#D6D3C9",
+          bar: "#262922",
+          danger: "#FF9A8F",
+          dangerLine: "#5A3A38",
         },
-
-        status: {
-          available: "#1E834F",
-          availableBg: "#123D29",
-        },
+        tabIdle: "#C9C4B8",
       },
     },
   },

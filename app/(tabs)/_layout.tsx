@@ -1,10 +1,10 @@
 import { Tabs } from "expo-router";
-import CustomTabBar from "../../src/components/navigation/CustomTabBar";
+import TabBar from "../../src/components/navigation/TabBar";
 
 export default function _layout() {
   return (
     <Tabs
-      tabBar={(props) => <CustomTabBar {...props} />}
+      tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
         headerShown: false,
       }}
@@ -13,13 +13,6 @@ export default function _layout() {
         name="home"
         options={{
           title: "Home",
-        }}
-      />
-
-      <Tabs.Screen
-        name="create"
-        options={{
-          title: "Create",
         }}
       />
 

@@ -4,12 +4,15 @@ import { devtools, persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const themeStore: StateCreator<ThemeState> = (set) => ({
-  theme: "light",
+  theme: "system",
 
   toggleTheme: (): void => {
     set((state: ThemeState) => ({
       theme: state.theme === "light" ? "dark" : "light",
     }));
+  },
+  setTheme: (theme): void => {
+    set({ theme });
   },
 });
 

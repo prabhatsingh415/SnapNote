@@ -1,10 +1,18 @@
 import { View } from "react-native";
 import "../global.css";
 import { Stack } from "expo-router";
-import { useFonts } from "expo-font";
 import { useCallback, useEffect, useState } from "react";
 import { useColorScheme } from "nativewind";
 import * as SplashScreen from "expo-splash-screen";
+import {
+  BricolageGrotesque_500Medium,
+  BricolageGrotesque_700Bold,
+  useFonts as useBricolageGrotesqueFonts,
+} from "@expo-google-fonts/bricolage-grotesque";
+import {
+  DMMono_400Regular,
+  useFonts as useDMMonoFonts,
+} from "@expo-google-fonts/dm-mono";
 
 import { SQLiteProvider } from "expo-sqlite";
 import AnimatedSplash from "../src/components/AnimatedSplash";
@@ -16,12 +24,12 @@ import SyncManager from "../src/sync/SyncManager";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    Inter: require("../assets/fonts/Inter_24pt-Regular.ttf"),
-    "Inter-Medium": require("../assets/fonts/Inter_24pt-Medium.ttf"),
-    "Inter-SemiBold": require("../assets/fonts/Inter_24pt-SemiBold.ttf"),
-    "Inter-Bold": require("../assets/fonts/Inter_24pt-Bold.ttf"),
+  const [bricolageLoaded] = useBricolageGrotesqueFonts({
+    BricolageGrotesque_500Medium,
+    BricolageGrotesque_700Bold,
   });
+  const [dmMonoLoaded] = useDMMonoFonts({ DMMono_400Regular });
+  const fontsLoaded = bricolageLoaded && dmMonoLoaded;
 
   const theme = useThemeStore((state) => state.theme);
   const { setColorScheme } = useColorScheme();
@@ -47,19 +55,30 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <SyncManager />
         <View
-          style={{ flex: 1, backgroundColor: "#0A0A0A" }}
+          style={{ flex: 1 }}
           onLayout={onLayout}
         >
           <Stack
             screenOptions={{
               headerShown: false,
               contentStyle: {
-                backgroundColor: "#000000",
               },
             }}
           >
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="camera" options={{ headerShown: false }} />
+            <Stack.Screen name="create" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="add"
+              options={{
+                presentation: "transparentModal",
+                animation: "fade",
+                headerShown: false,
+                contentStyle: { backgroundColor: "transparent" },
+              }}
+            />
+            <Stack.Screen name="note/[id]" options={{ headerShown: false }} />
           </Stack>
 
           {showSplash && (

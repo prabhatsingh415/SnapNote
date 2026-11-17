@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import {
+  useFocusEffect,
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useNotes } from "../../src/db/useNotes";
@@ -17,20 +21,32 @@ export default function NoteDetailScreen() {
   const [note, setNote] = useState<Note | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadNote = async () => {
-      if (!id) return;
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      setLoading(true);
 
-      try {
-        const data = await getNoteById(id);
-        setNote(data);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const loadNote = async () => {
+        try {
+          if (!id) {
+            setNote(null);
+            return;
+          }
 
-    loadNote();
-  }, [id, getNoteById]);
+          const data = await getNoteById(id);
+          if (active) setNote(data);
+        } finally {
+          if (active) setLoading(false);
+        }
+      };
+
+      void loadNote();
+
+      return () => {
+        active = false;
+      };
+    }, [getNoteById, id])
+  );
 
   if (loading) {
     return (
@@ -49,8 +65,15 @@ export default function NoteDetailScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-light-bg dark:bg-dark-bg">
-      <NoteDetail note={note} onBack={() => router.back()} />
-    </SafeAreaView>
+    <NoteDetail
+      note={note}
+      onBack={() => router.back()}
+      onEdit={() =>
+        router.push({
+          pathname: "/create/new-note",
+          params: { noteId: note.id },
+        })
+      }
+    />
   );
 }

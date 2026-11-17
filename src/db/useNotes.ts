@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Crypto from "expo-crypto";
 import { Operation, SyncStatus } from "../types/migration";
@@ -53,16 +54,16 @@ export const useNotes = () => {
   };
 
   // READ ALL
-  const getNotes = async (): Promise<Note[]> => {
+  const getNotes = useCallback(async (): Promise<Note[]> => {
     return await db.getAllAsync<Note>(
       `SELECT *
        FROM notes
        ORDER BY createdAt DESC`
     );
-  };
+  }, [db]);
 
   // READ ONE
-  const getNoteById = async (id: string): Promise<Note | null> => {
+  const getNoteById = useCallback(async (id: string): Promise<Note | null> => {
     const note = await db.getFirstAsync<Note>(
       `SELECT *
        FROM notes
@@ -71,7 +72,7 @@ export const useNotes = () => {
     );
 
     return note ?? null;
-  };
+  }, [db]);
 
   // UPDATE
   const updateNote = async (

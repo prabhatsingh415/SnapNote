@@ -16,20 +16,20 @@ export function Section({
     <View className={`mb-7`}>
       <View className={`mb-2 flex-row items-center`}>
         <Text
-          className={`mr-3 font-inter-semibold text-[12px] text-light-brand dark:text-dark-brand`}
+          className={`mr-3 font-bricolage-bold text-[12px] text-light-fg dark:text-dark-fg`}
         >
           {number}
         </Text>
 
         <Text
-          className={`flex-1 font-inter-semibold text-[16px] leading-[22px] text-light-text dark:text-dark-text`}
+          className={`flex-1 font-bricolage-bold text-[16px] leading-[22px] text-light-fg dark:text-dark-fg`}
         >
           {title}
         </Text>
       </View>
 
       <Text
-        className={`font-inter text-[13px] leading-[21px] text-light-textSecondary dark:text-dark-textSecondary`}
+        className={`font-bricolage-medium text-[13px] leading-[21px] text-light-muted dark:text-dark-muted`}
       >
         {children}
       </Text>
@@ -62,22 +62,22 @@ export default function LegalScreen({
     >
       {/* Header */}
       <View
-        className={`flex-row items-center border-b border-light-border px-[18px] py-4 dark:border-dark-border`}
+        className={`flex-row items-center border-b border-light-line px-[18px] py-4 dark:border-dark-line`}
       >
         <Pressable
           onPress={() => router.back()}
-          className={`h-10 w-10 items-center justify-center rounded-full bg-light-surface dark:bg-dark-surface`}
+          className={`h-10 w-10 items-center justify-center rounded-full bg-light-card dark:bg-dark-card`}
           hitSlop={8}
         >
           <ArrowLeft
             size={20}
             strokeWidth={2.2}
-            className={`text-light-text dark:text-dark-text`}
+            className={`text-light-fg dark:text-dark-fg`}
           />
         </Pressable>
 
         <Text
-          className={`ml-3 font-inter-semibold text-[17px] text-light-text dark:text-dark-text`}
+          className={`ml-3 font-bricolage-bold text-[17px] text-light-fg dark:text-dark-fg`}
         >
           {title}
         </Text>
@@ -93,28 +93,28 @@ export default function LegalScreen({
         showsVerticalScrollIndicator={false}
       >
         <Text
-          className={`font-inter-bold text-[28px] leading-[34px] text-light-text dark:text-dark-text`}
+          className={`font-bricolage-bold text-[28px] leading-[34px] text-light-fg dark:text-dark-fg`}
         >
           {heading}
         </Text>
 
         <Text
-          className={`mt-3 font-inter text-[13px] leading-[20px] text-light-textSecondary dark:text-dark-textSecondary`}
+          className={`mt-3 font-bricolage-medium text-[13px] leading-[20px] text-light-muted dark:text-dark-muted`}
         >
           {intro}
         </Text>
 
         <View
-          className={`mt-5 rounded-2xl border border-light-border bg-light-surface px-4 py-3 dark:border-dark-border dark:bg-dark-surface`}
+          className={`mt-5 rounded-2xl border border-light-line bg-light-card px-4 py-3 dark:border-dark-line dark:bg-dark-card`}
         >
           <Text
-            className={`font-inter text-[11px] text-light-textMuted dark:text-dark-textMuted`}
+            className={`font-mono text-[11px] text-light-muted dark:text-dark-muted`}
           >
             Last updated
           </Text>
 
           <Text
-            className={`mt-1 font-inter-semibold text-[13px] text-light-text dark:text-dark-text`}
+            className={`mt-1 font-bricolage-bold text-[13px] text-light-fg dark:text-dark-fg`}
           >
             October 2026
           </Text>
@@ -123,7 +123,7 @@ export default function LegalScreen({
         <View className={`mt-8`}>{children}</View>
 
         <Text
-          className={`mt-2 text-center font-inter text-[11px] leading-[17px] text-light-textMuted dark:text-dark-textMuted`}
+          className={`mt-2 text-center font-mono text-[11px] leading-[17px] text-light-muted dark:text-dark-muted`}
         >
           {footerNote}
         </Text>
