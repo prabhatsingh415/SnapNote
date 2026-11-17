@@ -46,10 +46,14 @@ export default function TabBar({ state }: TabBarProps) {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Search"
-          onPress={() => Alert.alert("Search", "Search is not designed yet.")}
+          onPress={() => router.replace("/(tabs)/search")}
           className="h-12 w-12 items-center justify-center rounded-full"
         >
-          <Search color={iconColor(false)} size={24} strokeWidth={1.9} />
+          <Search
+            color={iconColor(currentRoute === "search")}
+            size={24}
+            strokeWidth={1.9}
+          />
         </Pressable>
 
         <View className="h-12 w-[60px]" />

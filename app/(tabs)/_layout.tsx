@@ -17,6 +17,13 @@ export default function _layout() {
       />
 
       <Tabs.Screen
+        name="search"
+        options={{
+          title: "Search",
+        }}
+      />
+
+      <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
