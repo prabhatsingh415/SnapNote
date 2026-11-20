@@ -61,12 +61,14 @@ export default function TabBar({ state }: TabBarProps) {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Pinned notes"
-          onPress={() =>
-            Alert.alert("Pinned notes", "Pinned notes are not available yet.")
-          }
+          onPress={() => router.replace("/(tabs)/pinned")}
           className="h-12 w-12 items-center justify-center rounded-full"
         >
-          <Bookmark color={iconColor(false)} size={24} strokeWidth={1.9} />
+          <Bookmark
+            color={iconColor(currentRoute === "pinned")}
+            size={24}
+            strokeWidth={1.9}
+          />
         </Pressable>
 
         <Pressable

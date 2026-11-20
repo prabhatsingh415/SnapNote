@@ -24,6 +24,13 @@ export default function _layout() {
       />
 
       <Tabs.Screen
+        name="pinned"
+        options={{
+          title: "Pinned",
+        }}
+      />
+
+      <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",

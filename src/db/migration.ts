@@ -1,6 +1,6 @@
 import { SQLiteDatabase } from "expo-sqlite";
 
-export const DATABASE_VERSION = 1;
+export const DATABASE_VERSION = 2;
 
 export async function migrateDB(db: SQLiteDatabase) {
   const result = await db.getFirstAsync<{ user_version: number }>(
@@ -25,7 +25,8 @@ export async function migrateDB(db: SQLiteDatabase) {
         status TEXT NOT NULL DEFAULT 'pending'
           CHECK (status IN ('pending', 'synced')),
         createdAt INTEGER NOT NULL,
-        updatedAt INTEGER NOT NULL
+        updatedAt INTEGER NOT NULL,
+        pinned INTEGER NOT NULL DEFAULT 0
       );
 
       CREATE TABLE IF NOT EXISTS sync_queue (
@@ -43,6 +44,15 @@ export async function migrateDB(db: SQLiteDatabase) {
     `);
 
     currentDBVersion = 1;
+  }
+
+  const noteColumns = await db.getAllAsync<{ name: string }>(
+    "PRAGMA table_info(notes)"
+  );
+  if (!noteColumns.some((column) => column.name === "pinned")) {
+    await db.execAsync(
+      "ALTER TABLE notes ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0"
+    );
   }
 
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);

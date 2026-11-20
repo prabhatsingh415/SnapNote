@@ -5,6 +5,13 @@ import { Operation, SyncStatus } from "../types/migration";
 import { useQueue } from "../sync/queue";
 import { Note } from "../types/note";
 
+type StoredNote = Omit<Note, "pinned"> & { pinned: number };
+
+const mapNote = (note: StoredNote): Note => ({
+  ...note,
+  pinned: note.pinned === 1,
+});
+
 export const useNotes = () => {
   const db = useSQLiteContext();
   const { pushQueue } = useQueue();
@@ -55,24 +62,35 @@ export const useNotes = () => {
 
   // READ ALL
   const getNotes = useCallback(async (): Promise<Note[]> => {
-    return await db.getAllAsync<Note>(
+    const notes = await db.getAllAsync<StoredNote>(
       `SELECT *
        FROM notes
        ORDER BY createdAt DESC`
     );
+    return notes.map(mapNote);
   }, [db]);
 
   // READ ONE
   const getNoteById = useCallback(async (id: string): Promise<Note | null> => {
-    const note = await db.getFirstAsync<Note>(
+    const note = await db.getFirstAsync<StoredNote>(
       `SELECT *
        FROM notes
        WHERE id = ?`,
       id
     );
 
-    return note ?? null;
+    return note ? mapNote(note) : null;
   }, [db]);
+
+  const setPinned = async (id: string, pinned: boolean) => {
+    await db.runAsync(
+      `UPDATE notes
+       SET pinned = ?
+       WHERE id = ?`,
+      pinned ? 1 : 0,
+      id
+    );
+  };
 
   // UPDATE
   const updateNote = async (
@@ -150,6 +168,7 @@ export const useNotes = () => {
     createNote,
     getNotes,
     getNoteById,
+    setPinned,
     updateNote,
     deleteNote,
     changeStatusToSynced,

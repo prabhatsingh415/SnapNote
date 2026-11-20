@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useThemeStore from "../../src/store/themeStore";
 import { useColorScheme as useDeviceColorScheme } from "react-native";
 import EmptyIllustration from "../../src/components/ui/EmptyIllustration";
+import { filterPinned } from "../../src/utils/filterPinned";
 
 const Home = () => {
   const { getNotes } = useNotes();
@@ -23,6 +24,7 @@ const Home = () => {
 
   const theme =
     selectedTheme === "system" ? (deviceTheme ?? "light") : selectedTheme;
+  const displayedNotes = filter === "Pinned" ? filterPinned(notes) : notes;
 
   useFocusEffect(
     useCallback(() => {
@@ -75,8 +77,14 @@ const Home = () => {
         </View>
         {loading ? (
           <ActivityIndicator className="mt-10 text-light-fg dark:text-dark-fg" />
-        ) : notes.length > 0 ? (
-          <PhotoGrid notes={notes} />
+        ) : filter === "Pinned" && displayedNotes.length === 0 ? (
+          <View className="mt-12 flex-1 items-center justify-center px-5">
+            <Text className="text-center font-bricolage-medium text-[16px] text-light-muted dark:text-dark-muted">
+              No pinned notes yet
+            </Text>
+          </View>
+        ) : displayedNotes.length > 0 ? (
+          <PhotoGrid notes={displayedNotes} />
         ) : (
           <View className="mt-12 items-center px-5">
             <EmptyIllustration

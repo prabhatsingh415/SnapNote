@@ -1,5 +1,6 @@
 import { Image, LayoutChangeEvent, Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Bookmark } from "lucide-react-native";
 import { Note } from "../../types/note";
 import { useState } from "react";
 
@@ -71,6 +72,19 @@ export default function PhotoTile({
           locations={[0.45, 1]}
           className="absolute inset-x-0 bottom-0 h-[55%]"
         />
+      ) : null}
+      {note.pinned ? (
+        <View
+          className="absolute right-3 top-3 h-7 w-7 items-center justify-center rounded-full"
+          style={{ backgroundColor: "rgba(15,16,13,.55)" }}
+        >
+          <Bookmark
+            size={14}
+            strokeWidth={2}
+            color="#3DDC84"
+            fill="#3DDC84"
+          />
+        </View>
       ) : null}
       <View className="absolute bottom-[11px] left-3 right-3">
         <Text

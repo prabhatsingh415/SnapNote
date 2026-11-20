@@ -5,6 +5,7 @@ export interface Note {
   title: string;
   imageUri?: string;
   description?: string;
+  pinned: boolean;
   status: SyncStatus;
   createdAt: number;
   updatedAt: number;

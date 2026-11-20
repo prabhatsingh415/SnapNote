@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   ScrollView,
   Share,
@@ -16,7 +17,12 @@ import ConfirmDialog from "../ui/ConfirmDialog";
 import { Note } from "../../types/note";
 import { useNotes } from "../../db/useNotes";
 import { useEffect, useState } from "react";
-import { ChevronLeft, Share as ShareIcon, X } from "lucide-react-native";
+import {
+  Bookmark,
+  ChevronLeft,
+  Share as ShareIcon,
+  X,
+} from "lucide-react-native";
 
 type NoteDetailProps = {
   note: Note;
@@ -25,10 +31,11 @@ type NoteDetailProps = {
 };
 
 export default function NoteDetail({ note, onBack, onEdit }: NoteDetailProps) {
-  const { deleteNote, getNotes } = useNotes();
+  const { deleteNote, getNotes, setPinned } = useNotes();
   const [displayNumber, setDisplayNumber] = useState(1);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [pinned, setPinnedState] = useState(note.pinned);
 
   const date = new Date(note.createdAt);
   const meta = `NO.${String(displayNumber).padStart(3, "0")} · ${String(
@@ -51,6 +58,16 @@ export default function NoteDetail({ note, onBack, onEdit }: NoteDetailProps) {
   const remove = async () => {
     await deleteNote(note.id);
     onBack();
+  };
+
+  const togglePinned = async () => {
+    const nextPinned = !pinned;
+    try {
+      await setPinned(note.id, nextPinned);
+      setPinnedState(nextPinned);
+    } catch {
+      Alert.alert("Unable to update pin", "Please try again.");
+    }
   };
 
   return (
@@ -83,6 +100,20 @@ export default function NoteDetail({ note, onBack, onEdit }: NoteDetailProps) {
         className="absolute left-4 top-[56px]"
       >
         <ChevronLeft size={28} color="#ffffff" />
+      </IconButton>
+
+      <IconButton
+        overlay
+        label={pinned ? "Unpin note" : "Pin note"}
+        onPress={togglePinned}
+        className="absolute right-[72px] top-[56px]"
+      >
+        <Bookmark
+          size={24}
+          strokeWidth={1.9}
+          color={pinned ? "#3DDC84" : "#ffffff"}
+          fill={pinned ? "#3DDC84" : "transparent"}
+        />
       </IconButton>
 
       <IconButton
